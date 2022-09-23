@@ -31,15 +31,16 @@ set(VCPKG_EXE "${CMAKE_CURRENT_BINARY_DIR}/_deps/vcpkg-download-src/vcpkg")
 execute_process(COMMAND "${CMAKE_CURRENT_BINARY_DIR}/_deps/vcpkg-download-src/bootstrap-vcpkg.sh -disableMetrics")
 execute_process(COMMAND "${VCPKG_EXE}"
   "fetch" "nuget"
-  "--x-downloads-root=${CMAKE_CURRENT_BINARY_DIR}/_deps/vcpkg-download-src/"
+  "--x-downloads-root=${CMAKE_CURRENT_BINARY_DIR}/_deps/nuget/"
   OUTPUT_VARIABLE NUGET_EXE_OUT)
 
+message(STATUS "old output: ${NUGET_EXE_OUT}")
 string(REGEX REPLACE ";" "\\\\;" NUGET_EXE_OUT "${NUGET_EXE_OUT}")
 string(REGEX REPLACE "\n" ";" NUGET_EXE_OUT "${NUGET_EXE_OUT}")
-list(GET NUGET_EXE_OUT -2 NUGET_EXE)
+message(STATUS "transformed output: ${NUGET_EXE_OUT}")
+list(GET NUGET_EXE_OUT -1 NUGET_EXE)
 
 message(STATUS "using vcpkg: ${VCPKG_EXE}")
-message(STATUS "output: ${NUGET_EXE_OUT}")
 message(STATUS "using nuget: ${NUGET_EXE}")
 
 execute_process(COMMAND "mono" "${NUGET_EXE}" "sources" "add"
