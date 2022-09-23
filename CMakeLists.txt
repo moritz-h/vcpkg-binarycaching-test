@@ -38,7 +38,7 @@ string(REGEX REPLACE "\n" ";" NUGET_EXE_OUT "${NUGET_EXE_OUT}")
 list(GET NUGET_EXE_OUT -1 NUGET_EXE)
 
 message(STATUS "using vcpkg: ${VCPKG_EXE}")
-message(STATUS "output: {NUGET_EXE_OUT}")
+message(STATUS "output: ${NUGET_EXE_OUT}")
 message(STATUS "using nuget: ${NUGET_EXE}")
 
 execute_process(COMMAND "mono" "${NUGET_EXE}" "sources" "add"
