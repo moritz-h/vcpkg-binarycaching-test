@@ -2,6 +2,7 @@
   "name": "vcpkg-binarycaching-test",
   "version": "0.1.0",
   "dependencies": [
+    "nuget",
     "spdlog"
   ]
 }
