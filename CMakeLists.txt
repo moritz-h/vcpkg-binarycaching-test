@@ -27,6 +27,7 @@ set(VCPKG_INSTALL_OPTIONS "--clean-after-build")
 set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_BINARY_DIR}/_deps/vcpkg-download-src/scripts/buildsystems/vcpkg.cmake" CACHE STRING "Vcpkg toolchain file")
 
 set(VCPKG_EXE "${CMAKE_CURRENT_BINARY_DIR}/_deps/vcpkg-download-src/vcpkg")
+execute_process(COMMAND "${CMAKE_CURRENT_BINARY_DIR}/_deps/vcpkg-download-src/bootstrap-vcpkg.sh")
 execute_process(COMMAND "${VCPKG_EXE}" "fetch" "nuget" OUTPUT_VARIABLE NUGET_EXE)
 
 message(STATUS "using vcpkg: ${VCPKG_EXE}")
