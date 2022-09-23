@@ -28,7 +28,11 @@ set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_BINARY_DIR}/_deps/vcpkg-download-src/s
 
 set(VCPKG_EXE "${CMAKE_CURRENT_BINARY_DIR}/_deps/vcpkg-download-src/vcpkg")
 execute_process(COMMAND "${CMAKE_CURRENT_BINARY_DIR}/_deps/vcpkg-download-src/bootstrap-vcpkg.sh")
-execute_process(COMMAND "${VCPKG_EXE}" "fetch" "nuget" OUTPUT_VARIABLE NUGET_EXE)
+execute_process(COMMAND "${VCPKG_EXE}" "fetch" "nuget" OUTPUT_VARIABLE NUGET_EXE_OUT)
+
+string(REGEX REPLACE ";" "\\\\;" NUGET_EXE "${NUGET_EXE_OUT}")
+string(REGEX REPLACE "\n" ";" NUGET_EXE "${NUGET_EXE_OUT}")
+list(GET NUGET_EXE_OUT -1 NUGET_EXE)
 
 message(STATUS "using vcpkg: ${VCPKG_EXE}")
 message(STATUS "using nuget: ${NUGET_EXE}")
