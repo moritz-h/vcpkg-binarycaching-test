@@ -26,6 +26,22 @@ set(VCPKG_BOOTSTRAP_OPTIONS "-disableMetrics")
 set(VCPKG_INSTALL_OPTIONS "--clean-after-build")
 set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_BINARY_DIR}/_deps/vcpkg-download-src/scripts/buildsystems/vcpkg.cmake" CACHE STRING "Vcpkg toolchain file")
 
+set(VCPKG_EXE "${CMAKE_CURRENT_BINARY_DIR}/_deps/vcpkg-download-src/vcpkg")
+execute_process(COMMAND "${VCPKG_EXE}" "fetch" "nuget" OUTPUT_VARIABLE NUGET_EXE)
+
+message(STATUS "using vcpkg: ${VCPKG_EXE}")
+message(STATUS "using nuget: ${NUGET_EXE}")
+
+execute_process(COMMAND "mono" "${NUGET_EXE}" "sources" "add"
+  "-source" "https://nuget.pkg.github.com/reinago/index.json"
+  "-storepasswordincleartext"
+  "-name" '"GitHub"'
+  "-username" "reinago"
+  "-password" "$ENV{THE_GITHUB_TOKEN}")
+execute_process(COMMAND "mono" "${NUGET_EXE}"
+  "setapikey" "$ENV{THE_GITHUB_TOKEN}"
+  "-source" "https://nuget.pkg.github.com/reinago/index.json")
+
 project(vcpkg-binarycaching-test
   VERSION 0.1.0
   LANGUAGES CXX)
