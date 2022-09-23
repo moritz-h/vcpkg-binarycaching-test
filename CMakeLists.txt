@@ -33,8 +33,8 @@ execute_process(COMMAND "${VCPKG_EXE}"
   "--x-downloads-root=${CMAKE_CURRENT_BINARY_DIR}/_deps/vcpkg-download-src/"
   OUTPUT_VARIABLE NUGET_EXE_OUT)
 
-string(REGEX REPLACE ";" "\\\\;" NUGET_EXE "${NUGET_EXE_OUT}")
-string(REGEX REPLACE "\n" ";" NUGET_EXE "${NUGET_EXE_OUT}")
+string(REGEX REPLACE ";" "\\\\;" NUGET_EXE_OUT "${NUGET_EXE_OUT}")
+string(REGEX REPLACE "\n" ";" NUGET_EXE_OUT "${NUGET_EXE_OUT}")
 list(GET NUGET_EXE_OUT -1 NUGET_EXE)
 
 message(STATUS "using vcpkg: ${VCPKG_EXE}")
