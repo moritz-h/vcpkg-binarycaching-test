@@ -26,8 +26,19 @@ set(VCPKG_BOOTSTRAP_OPTIONS "-disableMetrics")
 set(VCPKG_INSTALL_OPTIONS "--clean-after-build")
 set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_BINARY_DIR}/_deps/vcpkg-download-src/scripts/buildsystems/vcpkg.cmake" CACHE STRING "Vcpkg toolchain file")
 
+# do we need to set any of these?
+# X_VCPKG_NUGET_ID_PREFIX
+# VCPKG_USE_NUGET_CACHE
+# VCPKG_DEFAULT_BINARY_CACHE
+# VCPKG_BINARY_SOURCES
+# VCPKG_NUGET_REPOSITORY
+# GITHUB_REPOSITORY
+# GITHUB_SERVER_URL
+# GITHUB_REF
+# GITHUB_SHA
+
 set(VCPKG_EXE "${CMAKE_CURRENT_BINARY_DIR}/_deps/vcpkg-download-src/vcpkg")
-# force bootstrap
+# force bootstrap to get the vcpkg executable
 execute_process(COMMAND "${CMAKE_CURRENT_BINARY_DIR}/_deps/vcpkg-download-src/bootstrap-vcpkg.sh" "-disableMetrics")
 execute_process(COMMAND "${VCPKG_EXE}"
   "fetch" "nuget"
@@ -42,6 +53,8 @@ list(GET NUGET_EXE_OUT -2 NUGET_EXE)
 
 message(STATUS "using vcpkg: ${VCPKG_EXE}")
 message(STATUS "using nuget: ${NUGET_EXE}")
+
+set(VCPKG_NUGET_REPOSITORY "https://nuget.pkg.github.com/reinago/index.json")
 
 execute_process(COMMAND "mono" "${NUGET_EXE}" "sources" "add"
   "-source" "https://nuget.pkg.github.com/reinago/index.json"
