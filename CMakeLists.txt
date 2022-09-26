@@ -54,7 +54,7 @@ list(GET NUGET_EXE_OUT -2 NUGET_EXE)
 message(STATUS "using vcpkg: ${VCPKG_EXE}")
 message(STATUS "using nuget: ${NUGET_EXE}")
 
-set(ENV{VCPKG_BINARY_SOURCES} "nuget,https://nuget.pkg.github.com/reinago/index.json,rw")
+set(ENV{VCPKG_BINARY_SOURCES} "nuget,https://nuget.pkg.github.com/reinago/index.json,readwrite")
 
 execute_process(COMMAND "mono" "${NUGET_EXE}" "sources" "add"
   "-source" "https://nuget.pkg.github.com/reinago/index.json"
