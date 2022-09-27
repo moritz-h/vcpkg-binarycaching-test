@@ -25,6 +25,9 @@ endif ()
 set(VCPKG_BOOTSTRAP_OPTIONS "-disableMetrics")
 set(VCPKG_INSTALL_OPTIONS "--clean-after-build")
 set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_BINARY_DIR}/_deps/vcpkg-download-src/scripts/buildsystems/vcpkg.cmake" CACHE STRING "Vcpkg toolchain file")
+set(VCPKG_OVERLAY_TRIPLETS "${CMAKE_CURRENT_LIST_DIR}/overlay_triplets")
+
+set(ENV{VCPKG_BINARY_SOURCES} "nuget,https://nuget.pkg.github.com/reinago/index.json,readwrite")
 
 project(vcpkg-binarycaching-test
   VERSION 0.1.0
